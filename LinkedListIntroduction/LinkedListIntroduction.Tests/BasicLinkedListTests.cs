@@ -9,36 +9,64 @@ public sealed class BasicLinkedListTests
     [TestMethod]
     public void TestEmpty()
     {
-        IntegerLinkedList ill = new IntegerLinkedList();
-        Assert.AreEqual(0, ill.Count);
+        IntegerLinkedList l = new IntegerLinkedList();
+        Assert.AreEqual(0, l.Count);
     }
 
     [TestMethod]
     public void TestCount()
     {
-        var ill = new IntegerLinkedList(5);
-        ill.Append(7);
-        ill.Append(9);
-        Assert.AreEqual(3, ill.Count);
+        var l = new IntegerLinkedList(5);
+        l.Append(7);
+        l.Append(9);
+        Assert.AreEqual(3, l.Count);
     }
 
     [TestMethod]
     public void TestSum()
     {
-        var ill = new IntegerLinkedList(5);
-        ill.Append(7);
-        ill.Append(9);
-        Assert.AreEqual(21, ill.Sum);
+        var l = new IntegerLinkedList(5);
+        l.Append(7);
+        l.Append(9);
+        Assert.AreEqual(21, l.Sum);
     }
 
     [TestMethod]
     public void TestToStringExplicit()
     {
-        var ill = new IntegerLinkedList(5);
-        ill.Append(7);
-        ill.Append(9);
-        Assert.AreEqual("{5, 7, 9}", ill.ToString());
+        var l = new IntegerLinkedList(5);
+        l.Append(7);
+        l.Append(9);
+        Assert.AreEqual("{5, 7, 9}", l.ToString());
     }
 
+    [TestMethod]
+    public void TestPrepend()
+    {
+        var l = new IntegerLinkedList(5);
+        l.Prepend(3);
+        Assert.AreEqual("{3, 5}", l.ToString());
+    }
 
+    [TestMethod]
+    public void TestDelete()
+    {
+        var l = new IntegerLinkedList(1);
+        l.Append(5);
+        l.Append(9);
+        Assert.IsTrue(l.Delete(5));
+        Assert.AreEqual("{1, 9}", l.ToString());
+
+        Assert.IsFalse(l.Delete(2));
+    }
+    [TestMethod]
+    public void TestInsert()
+    {
+        var l = new IntegerLinkedList(1);
+        l.Append(3);
+        l.Append(5);
+        l.Append(7);
+        l.Insert(4, 2);//insert after second position
+        Assert.AreEqual("{1, 3, 4, 5, 7}", l.ToString());
+    }
 }
