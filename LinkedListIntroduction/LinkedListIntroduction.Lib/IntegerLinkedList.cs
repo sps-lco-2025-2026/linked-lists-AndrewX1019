@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
+using Microsoft.VisualBasic;
 
 namespace LinkedListIntroduction.Lib;
 
@@ -13,6 +14,19 @@ public class IntegerLinkedList
     public IntegerLinkedList(int v)
     {
         _head = new IntegerNode(v);
+    }
+    public IntegerLinkedList(int[] arr)
+    {
+        if (arr == null)
+        {
+            _head=null;
+            return;
+        }
+        _head=new IntegerNode(arr[0]);
+        for(int i = 1; i < arr.Count(); i++)
+        {
+            _head.Append(arr[i]);
+        }
     }
     public int Count => _head == null ? 0 : _head.Count;
     public int Sum => _head == null ? 0 : _head.Sum;
@@ -61,9 +75,22 @@ public class IntegerLinkedList
         }
         return false;//not found
     }
-    public void Insert(int v, int n)
+    public bool Insert(int v, int n)
     {
-        IntegerNode current = _head;
+        if (_head == null)
+        {
+            return false;
+        }
+        if (n > _head.Count)
+        {
+            return false;
+        }
+        if (n == 0)
+        {
+            Prepend(v);
+            return true;
+        }
+        var current = _head;
         int Count=0;
         while (Count < n - 1)
         {
@@ -74,13 +101,32 @@ public class IntegerLinkedList
         current._next=null;
         current.Append(v);
         current._next._next=temp;
+        return true;
+    }
+    public void Join(IntegerLinkedList l)
+    {
+        if (_head == null)
+        {
+            _head=l._head;
+            return;
+        }
+        if (l._head == null)
+        {
+            return;
+        }
+        IntegerNode current=l._head;
+        while (current._next != null)
+        {
+            Append(current._value);
+            current=current._next;
+        }
+        Append(current._value);//need redo
     }
     public override string ToString()//?
     {
         return _head == null ? "{}" : $"{{{_head}}}";
     }
 }
-
 public class IntegerNode
 {
     public int _value;
@@ -96,7 +142,6 @@ public class IntegerNode
         _value = v;
         _next = null;
     }
-
     internal void Append(int v)//tick
     {
         if (_next == null)

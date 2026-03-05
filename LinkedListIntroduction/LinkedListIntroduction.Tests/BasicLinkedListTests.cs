@@ -68,5 +68,16 @@ public sealed class BasicLinkedListTests
         l.Append(7);
         l.Insert(4, 2);//insert after second position
         Assert.AreEqual("{1, 3, 4, 5, 7}", l.ToString());
+        Assert.IsFalse(l.Insert(9, 6));
+        l.Insert(0, 0);//just prepend
+        Assert.AreEqual("{0, 1, 3, 4, 5, 7}", l.ToString());
+    }
+    [TestMethod]
+    public void TestJoin()
+    {
+        var l = new IntegerLinkedList([1, 2, 3, 4, 5]);
+        var s = new IntegerLinkedList([6, 7, 8, 9, 10]);
+        l.Join(s);
+        Assert.AreEqual("{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}", l.ToString());
     }
 }
