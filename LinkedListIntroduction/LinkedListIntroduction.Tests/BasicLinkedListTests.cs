@@ -80,4 +80,11 @@ public sealed class BasicLinkedListTests
         l.Join(s);
         Assert.AreEqual("{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}", l.ToString());
     }
+    [TestMethod]
+    public void TestFind()
+    {
+        var l = new IntegerLinkedList([1, 2, 3, 4, 5]);
+        Assert.IsTrue(l.Find(3));
+        Assert.IsFalse(l.Find(7));
+    }
 }

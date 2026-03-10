@@ -126,6 +126,19 @@ public class IntegerLinkedList
     {
         return _head == null ? "{}" : $"{{{_head}}}";
     }
+    public bool Find(int v)
+    {
+        if (_head == null)
+        {
+            return false;
+        }
+        var current = _head;
+        while (current._value != v&&current._next!=null)
+        {
+            current=current._next;
+        }
+        return current._value==v;
+    }
 }
 public class IntegerNode
 {
@@ -149,7 +162,6 @@ public class IntegerNode
         else
             _next.Append(v);
     }
-    
 
     public override string ToString()
     {
